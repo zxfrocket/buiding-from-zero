@@ -5,8 +5,7 @@
     "allowJs": true
   },
   "include": [
-    "./client/src/*",
-    "./client/src/lib/*"
+    "./client/src/*"
   ],
   "exclude": [
     "./node_modules"
