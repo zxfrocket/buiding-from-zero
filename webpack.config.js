@@ -1,6 +1,6 @@
 module.exports = {
   entry: {
-    app: './client/src/app.js'
+    app: './client/src/app.ts'
   },
   output: {
     filename: '[name].release.js'
@@ -8,18 +8,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.ts$/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            "presets": [
-              ["@babel/preset-env", {
-                "targets": {
-                  "browsers": ["last 2 versions", "ie 6-8"]
-                }
-              }]
-            ]
-          }
+          loader: 'ts-loader'
         },
         exclude: '/node_modules/'
       }

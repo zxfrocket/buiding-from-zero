@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "allowJs": true
+  },
+  "include": [
+    "./client/src/*",
+    "./client/src/lib/*"
+  ],
+  "exclude": [
+    "./node_modules"
+  ]
+}
