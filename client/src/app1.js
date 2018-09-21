@@ -3,6 +3,7 @@ import sub2 from './lib/sub2'
 
 import * as _ from '../../node_modules/lodash'
 
-console.log(sub1, sub2)
+console.log(_.map([sub1, sub2], x => x + '_____'))
+
 
 export default 'app1'
