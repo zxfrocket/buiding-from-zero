@@ -1,26 +1,21 @@
-const webpack = require('webpack')
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app1: './client/src/app1.js',
-    app2: './client/src/app2.js',
-    vendor: ['lodash']
+    app: './client/src/app.js',
   },
   output: {
     path: path.resolve(__dirname, './client/dist'),
     filename: '[name].bundle.js',
-    chunkFilename: '[name].common.js'
+    chunkFilename: '[name].chunk.js',
+    publicPath: './dist/',
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      minChunks: 2,
-      chunks: ['app1', 'app2']
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest'],
-      minChunks: Infinity
+      async: 'async-common',
+      children: true,
+      minChunks: 2
     })
   ]
 }
