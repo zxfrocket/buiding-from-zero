@@ -1,28 +1,26 @@
+const webpack = require('webpack')
+const path = require('path')
+
 module.exports = {
   entry: {
-    app: './client/src/app.js'
+    app1: './client/src/app1.js',
+    app2: './client/src/app2.js',
+    vendor: ['lodash']
   },
   output: {
-    filename: '[name].release.js'
+    path: path.resolve(__dirname, './client/dist'),
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].common.js'
   },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            "presets": [
-              ["@babel/preset-env", {
-                "targets": {
-                  "browsers": ["last 2 versions", "ie 6-8"]
-                }
-              }]
-            ]
-          }
-        },
-        exclude: '/node_modules/'
-      }
-    ]
-  }
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
+      minChunks: 2,
+      chunks: ['app1', 'app2']
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor', 'manifest'],
+      minChunks: Infinity
+    })
+  ]
 }
