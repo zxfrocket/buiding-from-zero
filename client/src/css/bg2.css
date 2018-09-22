@@ -1,3 +1,9 @@
 html{
   border: solid 30px blue;
 }
+
+.box2{
+  composes: box1 from './bg1.css';
+  height: 200px;
+  width: 500px;
+}

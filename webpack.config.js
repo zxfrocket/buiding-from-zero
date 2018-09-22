@@ -22,7 +22,12 @@ module.exports = {
             }
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+              modules: true,
+              localIdentName:'[path]__[name]__[local]--[hash:base64:5]'
+            }
           }
         ]
       }
