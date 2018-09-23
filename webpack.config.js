@@ -12,7 +12,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.less/,
         use: [
           {
             loader: 'style-loader',
@@ -24,10 +24,12 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              minimize: true,
               modules: true,
               localIdentName:'[path]__[name]__[local]--[hash:base64:5]'
             }
+          },
+          {
+            loader: 'less-loader'
           }
         ]
       }

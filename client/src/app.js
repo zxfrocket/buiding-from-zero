@@ -1,6 +1,5 @@
-import bg1 from './css/bg1.css'
-import bg2 from './css/bg2.css'
+import bg1 from './less/bg1.less'
+import bg2 from './less/bg2.less'
 
 let appElem = document.getElementById("app");
-//appElem.innerHTML = '<div class="' + bg1.box1 + '"></div>';
 appElem.innerHTML = '<div class="' + bg2.box2 + '"></div>';
