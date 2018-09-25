@@ -1,9 +1,15 @@
+const path = require('path');
+const webpack = require('webpack');
+
 module.exports = {
   entry: {
     app: './client/src/app.js'
   },
   output: {
-    filename: '[name].release.js'
+    filename: '[name].release.js',
+    path: path.resolve(__dirname, './client/dist'),
+    publicPath: './dist/',
+    chunkFilename: '[name].chunk.js'
   },
   module: {
     rules: [
@@ -12,17 +18,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            "presets": [
-              ["@babel/preset-env", {
-                "targets": {
-                  "browsers": ["last 2 versions", "ie 6-8"]
-                }
-              }]
-            ]
+            presets: ['@babel/preset-env'],
+            plugins: ['lodash']
           }
-        },
-        exclude: '/node_modules/'
+        }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 }

@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
   "devDependencies": {
     "@babel/core": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "babel-loader": "^8.0.2",
-    "babel-plugin-transform-runtime": "^6.23.0"
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "webpack": "^3.10.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
