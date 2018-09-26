@@ -1,5 +1,7 @@
 const path = require('path');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
+const glob = require('glob-all');
 
 module.exports = {
   entry: {
@@ -27,7 +29,6 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
                 localIdentName:'[path]__[name]__[local]--[hash:base64:5]'
               }
             },
@@ -36,7 +37,6 @@ module.exports = {
               options: {
                 ident: 'postcss',
                 plugins: [
-                  //require('autoprefixer')(),
                   require('postcss-cssnext')()
                 ]
               }
@@ -53,6 +53,12 @@ module.exports = {
     new ExtractTextWebpackPlugin({
       filename: '[name].min.css',
       allChunks: false
+    }),
+    new PurifyCSSPlugin({
+      paths: glob.sync([
+        path.join(__dirname, './client/**/*.html'),
+        path.join(__dirname, './client/src/**/*.js')
+      ])
     })
   ]
 }

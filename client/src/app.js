@@ -1,9 +1,7 @@
-import bg1 from './less/bg1.less'
-import bg2 from './less/bg2.less'
+import './less/bg1.less'
 
-let appElem = document.getElementById("app");
-appElem.innerHTML = '<div class="' + bg2.box2 + '"></div>';
+const container = document.getElementById('css-shaking-container');
+const orange = document.createElement('div');
+orange.className = 'css-shaking-orange';
+container.appendChild(orange);
 
-import(/* webpackChunkName: 'dyn'*/'./less/dyn.less').then(function(dyn){
-  console.log(dyn);
-})
