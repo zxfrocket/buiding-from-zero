@@ -46,6 +46,28 @@ module.exports = {
             }
           ]
         })
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        use: [
+          // {
+          //   loader: 'file-loader',
+          //   options: {
+          //     publicPath: 'resources/images/',
+          //     outputPath: './dist',
+          //     useRelativePath: true
+          //   }
+          // },
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 2000,
+              publicPath: 'resources/images/',
+              outputPath: './dist',
+              useRelativePath: true
+            }
+          }
+        ]
       }
     ]
   },
