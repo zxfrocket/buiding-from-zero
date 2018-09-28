@@ -37,6 +37,9 @@ module.exports = {
               options: {
                 ident: 'postcss',
                 plugins: [
+                  require('postcss-sprites')({
+                    spritePath: './client/resources/images'
+                  }),
                   require('postcss-cssnext')()
                 ]
               }
@@ -61,10 +64,19 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
+              name: '[name]-min.[ext]',
               limit: 2000,
               publicPath: 'resources/images/',
               outputPath: './dist',
               useRelativePath: true
+            }
+          },
+          {
+            loader: 'img-loader',
+            options: {
+              pngquant:{
+                quality: 80
+              }
             }
           }
         ]
