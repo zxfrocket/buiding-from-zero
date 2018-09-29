@@ -80,6 +80,19 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(eot|woff2?|tff|svg)$/,
+        use:{
+          loader: 'url-loader',
+          options: {
+            name: '[name]-min.[ext]',
+            limit: 2000,
+            publicPath: 'resources/fonts/',
+            outputPath: './dist',
+            useRelativePath: true
+          }
+        }
       }
     ]
   },
