@@ -2,6 +2,7 @@ const path = require('path');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
 const glob = require('glob-all');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -12,6 +13,11 @@ module.exports = {
     publicPath: './dist/',
     filename: '[name].release.js',
     chunkFilename: '[name].min.css'
+  },
+  resolve: {
+    alias: {
+      jquery$: path.resolve(__dirname, './client/src/lib/jquery.min.js')
+    }
   },
   module: {
     rules: [
@@ -80,6 +86,15 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: path.resolve(__dirname, './client/src/app.js'),
+        use: {
+          loader: 'imports-loader',
+          options: {
+            $: 'jquery'
+          }
+        }
       }
     ]
   },
@@ -88,6 +103,9 @@ module.exports = {
       filename: '[name].min.css',
       allChunks: false
     }),
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery'
+    // }),
     new PurifyCSSPlugin({
       paths: glob.sync([
         path.join(__dirname, './client/**/*.html'),

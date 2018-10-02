@@ -5,3 +5,5 @@ const orange = document.createElement('div');
 orange.className = 'css-shaking-orange';
 container.appendChild(orange);
 
+$('#jq-container').addClass('jquery-test')
+
