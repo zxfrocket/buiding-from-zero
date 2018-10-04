@@ -1,6 +1,7 @@
 const path = require('path');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const glob = require('glob-all');
 const webpack = require('webpack');
 
@@ -10,8 +11,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './client/dist'),
-    publicPath: './dist/',
-    filename: '[name].release.js',
+    filename: '[name].release.[hash:5].js',
     chunkFilename: '[name].min.css'
   },
   resolve: {
@@ -59,14 +59,6 @@ module.exports = {
       {
         test: /\.(png|jpg|jpeg|gif)$/,
         use: [
-          // {
-          //   loader: 'file-loader',
-          //   options: {
-          //     publicPath: 'resources/images/',
-          //     outputPath: './dist',
-          //     useRelativePath: true
-          //   }
-          // },
           {
             loader: 'url-loader',
             options: {
@@ -100,17 +92,23 @@ module.exports = {
   },
   plugins: [
     new ExtractTextWebpackPlugin({
-      filename: '[name].min.css',
+      filename: '[name].min.[hash:5].css',
       allChunks: false
     }),
-    // new webpack.ProvidePlugin({
-    //   $: 'jquery'
-    // }),
     new PurifyCSSPlugin({
       paths: glob.sync([
         path.join(__dirname, './client/**/*.html'),
         path.join(__dirname, './client/src/**/*.js')
       ])
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './client/index.html',
+      inject: true,
+      chunks: ['app'],
+      minify: {
+        collapseWhitespace: true
+      }
     })
   ]
 }
