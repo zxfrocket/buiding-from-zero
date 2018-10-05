@@ -63,9 +63,9 @@ module.exports = {
             loader: 'url-loader',
             options: {
               name: '[name]-min.[ext]',
-              limit: 2000
-              //publicPath: 'resources/images/',
-              //outputPath: './dist'
+              limit: 2000,
+              //publicPath: 'assets/',
+              outputPath: './assets'
             }
           },
           {
