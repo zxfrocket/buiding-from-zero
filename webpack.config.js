@@ -4,6 +4,7 @@ const PurifyCSSPlugin = require('purifycss-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const glob = require('glob-all');
 const webpack = require('webpack');
+const HtmlInlineChunkPlugin = require('html-webpack-inline-chunk-plugin');
 
 module.exports = {
   entry: {
@@ -21,6 +22,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
       {
         test: /\.less$/,
         use: ExtractTextWebpackPlugin.extract({
@@ -109,14 +119,20 @@ module.exports = {
         path.join(__dirname, './client/src/**/*.js')
       ])
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['manifest']
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './client/index.html',
       inject: true,
-      chunks: ['app'],
+      chunks: ['app', 'manifest'],
       minify: {
         collapseWhitespace: true
       }
+    }),
+    new HtmlInlineChunkPlugin({
+        inlineChunks: ['manifest']
     })
   ]
 }
