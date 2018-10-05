@@ -63,10 +63,9 @@ module.exports = {
             loader: 'url-loader',
             options: {
               name: '[name]-min.[ext]',
-              limit: 2000,
-              publicPath: 'resources/images/',
-              outputPath: './dist',
-              useRelativePath: true
+              limit: 2000
+              //publicPath: 'resources/images/',
+              //outputPath: './dist'
             }
           },
           {
@@ -85,6 +84,15 @@ module.exports = {
           loader: 'imports-loader',
           options: {
             $: 'jquery'
+          }
+        }
+      },
+      {
+        test: /\.html$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: ['img:src', 'img:data-src']
           }
         }
       }
