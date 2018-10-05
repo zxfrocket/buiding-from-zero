@@ -64,7 +64,6 @@ module.exports = {
             options: {
               name: '[name]-min.[ext]',
               limit: 2000,
-              //publicPath: 'assets/',
               outputPath: './assets'
             }
           },
@@ -84,15 +83,6 @@ module.exports = {
           loader: 'imports-loader',
           options: {
             $: 'jquery'
-          }
-        }
-      },
-      {
-        test: /\.html$/,
-        use: {
-          loader: 'html-loader',
-          options: {
-            attrs: ['img:src', 'img:data-src']
           }
         }
       }
