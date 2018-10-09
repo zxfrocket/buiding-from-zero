@@ -20,6 +20,24 @@ module.exports = {
       jquery$: path.resolve(__dirname, './client/src/lib/jquery.min.js')
     }
   },
+  devServer: {
+    port: 9001,
+    //inline: false,
+    historyApiFallback: {
+      rewrites: [
+        // {
+        //   from: '/pages/a',
+        //   to: '/client/pages/a.html'
+        // },
+        {
+          from: /^\/([a-zA-Z0-9]+\/?)([a-zA-Z0-9]+)/,
+          to: function(context){
+            return 'client/' + context.match[1] + context.match[2] + '.html';
+          }
+        }
+      ]
+    }
+  },
   module: {
     rules: [
       {
