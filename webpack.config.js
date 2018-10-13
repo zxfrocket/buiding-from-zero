@@ -20,46 +20,44 @@ module.exports = {
       jquery$: path.resolve(__dirname, './client/src/lib/jquery.min.js')
     }
   },
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     port: 9001,
     //inline: false,
-    historyApiFallback: {
-      rewrites: [
-        // {
-        //   from: '/pages/a',
-        //   to: '/client/pages/a.html'
-        // },
-        {
-          from: /^\/([a-zA-Z0-9]+\/?)([a-zA-Z0-9]+)/,
-          to: function(context){
-            return 'client/' + context.match[1] + context.match[2] + '.html';
-          }
-        }
-      ]
-    }
+    overlay: true,
+    hot: true
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
+        include: path.resolve(__dirname, './client/src'),
+        exclude: path.resolve(__dirname, './client/src/lib'),
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          },
+          {
+            loader: 'eslint-loader',
+            options: {
+              formatter: require('eslint-friendly-formatter')
+            }
           }
-        }
+      ]
       },
       {
         test: /\.less$/,
-        use: ExtractTextWebpackPlugin.extract({
-          fallback: {
-            loader: 'style-loader',
-            options: {
-              singleton: true,
-              transform: './css.transform.js'
-            }
-          },
           use: [
+            {
+              loader: 'style-loader',
+              options: {
+                singleton: true,
+                transform: './css.transform.js'
+              }
+            },
             {
               loader: 'css-loader',
               options: {
@@ -82,7 +80,6 @@ module.exports = {
               loader: 'less-loader'
             }
           ]
-        })
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,
@@ -105,15 +102,6 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: path.resolve(__dirname, './client/src/app.js'),
-        use: {
-          loader: 'imports-loader',
-          options: {
-            $: 'jquery'
-          }
-        }
       },
       {
         test: /\.html$/,
@@ -149,8 +137,14 @@ module.exports = {
         collapseWhitespace: true
       }
     }),
+    //new webpack.optimize.UglifyJsPlugin(),
     new HtmlInlineChunkPlugin({
         inlineChunks: ['manifest']
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery'
     })
   ]
 }
