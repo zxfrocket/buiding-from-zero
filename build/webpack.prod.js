@@ -8,7 +8,7 @@ const HtmlInlineChunkPlugin = require('html-webpack-inline-chunk-plugin');
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, './client/dist/prod'),
+    path: path.resolve(__dirname, '../client/dist/prod'),
     filename: '[name].min.[hash:5].js',
     chunkFilename: '[name].min.css'
   },
@@ -39,7 +39,7 @@ module.exports = {
                 ident: 'postcss',
                 plugins: [
                   require('postcss-sprites')({
-                    spritePath: './client/resources/images'
+                    spritePath: '../client/resources/images'
                   }),
                   require('postcss-cssnext')()
                 ]
@@ -80,8 +80,8 @@ module.exports = {
     }),
     new PurifyCSSPlugin({
       paths: glob.sync([
-        path.join(__dirname, './client/**/*.html'),
-        path.join(__dirname, './client/src/**/*.js')
+        path.join(__dirname, '../client/**/*.html'),
+        path.join(__dirname, '../client/src/**/*.js')
       ])
     }),
     new webpack.optimize.CommonsChunkPlugin({

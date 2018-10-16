@@ -1,6 +1,6 @@
 const merge = require('webpack-merge')
-const prodConf = require('./webpack.prod')
-const devConf = require('./webpack.dev')
+const prodConf = require('./build/webpack.prod')
+const devConf = require('./build/webpack.dev')
 
 const path = require('path')
 

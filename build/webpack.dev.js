@@ -6,7 +6,7 @@ const HtmlInlineChunkPlugin = require('html-webpack-inline-chunk-plugin');
 module.exports = {
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, './client/dist/dev')
+    path: path.resolve(__dirname, '../client/dist/dev')
   },
   devtool: 'cheap-module-eval-source-map',
   devServer: {
