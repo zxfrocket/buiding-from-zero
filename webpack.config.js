@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
   entry: {
@@ -13,6 +14,7 @@ module.exports = {
     chunkFilename: '[name].common.js'
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       minChunks: 2,
